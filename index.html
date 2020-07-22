@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Popper JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <!--Material Icons-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Archivos locales -->
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="class.js"></script>
+  <script src="script.js"></script>
+
+  <title>El Recetario</title>
+</head>
+
+<body>
+  <div id="error" class="sticky-top">
+  </div>
+
+  <div id="barraUsuarioLogueado">
+  </div>
+
+  <div class="container">
+
+    <div id="header">
+      <div class="row">
+        <div class="col-sm-8">
+        </div>
+        <div class="col-sm-4" id="searchbar">
+          <div class="input-group">
+            <span class="btn btn-sm" id="submitBusqueda">
+              <i class="material-icons" aria-hidden="true">search</i>
+            </span>
+            <input type="text" class="form-control" id="searchField" placeholder="Buscar recetas" aria-label="Search" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="logo btn" id="logoBtn">
+          <h1>El Recetario</h1>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Acá termina el header -->
+
+    <!-- Recetas -->
+    <div id="mostrarRecetas">
+      <!-- El contenido de este elemento se genera en el script -->
+    </div>
+
+    <!-- Resultados de la búsqueda -->
+    <div id="resultados">
+      <div id=busquedaTitulo>
+        <h2>Resultados de la búsqueda</h2>
+      </div>
+
+      <div id="busquedaCuerpo">
+
+      </div>
+    </div>
+    <!-- Panel admin-->
+    <div id="adminPanel">
+      <div id=adminTitulo>
+        <h1>Panel de Administración</h1>
+      </div>
+      <div id="nuevaReceta" class="col-sm-7">
+        <a href="#modalNuevaReceta" data-toggle="modal" class="btn btn-secondary trigger-btn"><i
+            class="material-icons">&#xE147;</i> <span>Nueva receta</span></a>
+      </div>
+
+      <!-- rendimiento-->
+
+      <div id="rendimiento" class="row">
+        <div class="table-responsive col">
+          <div class="table-wrapper">
+            <div class="table-title bg-success">
+              <div class="row">
+                <div class="col-auto">
+                  <h3><b>Recetas mejor puntuadas</b></h3>
+                </div>
+              </div>
+            </div>
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Titulo</th>
+                  <th>Likes</th>
+                  <th>Puntaje</th>
+                </tr>
+              </thead>
+              <tbody id="tablaLikes">
+
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+
+        <div class="table-responsive col">
+          <div class="table-wrapper">
+            <div class="table-title bg-danger">
+              <div class="row">
+                <div class="col">
+                  <h3><b>Recetas peor puntuadas</b></h3>
+                </div>
+              </div>
+            </div>
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Titulo</th>
+                  <th>Dislikes</th>
+                  <th>Puntaje</th>
+                </tr>
+              </thead>
+              <tbody id="tablaDislikes">
+
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- colaboradores-->
+      <div id="colaboradores" class="table-responsive">
+        <div class="table-wrapper">
+          <div class="table-title">
+            <div class="row">
+              <div class="col-sm-5">
+                <h3><b>Colaboradores</b></h3>
+              </div>
+              <div id="nuevoUsuario" class="col-sm-7">
+                <a href="#modalNuevoUsuario" data-toggle="modal" class="btn btn-secondary trigger-btn"><i
+                    class="material-icons">&#xE147;</i> <span>Nuevo usuario</span></a>
+              </div>
+            </div>
+          </div>
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Usuario</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th># Recetas</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tablaUsuarios">
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div> <!-- div container -->
+
+  <!-- footer -->
+  <div id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 footer-text">
+          <h4><a href="#">El Recetario</a></h4>
+          <button type="button" class="btn btn-secondary" id="admin">Panel de administración</button>
+        </div>
+        <div class="col-sm-4 footer-text">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal inicio de sesión -->
+  <div class="modal fade" id="loginModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="container-fluid">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h4 class="modal-title w-100 font-weight-bold">Iniciar sesión</h4>
+          </div>
+
+          <form id="formLogin">
+            <div class="modal-body mx-3">
+              <div class="form-group">
+                <label for="loginUser">Usuario</label>
+                <input type="text" class="form-control" id="loginUser" placeholder="Usuario" required>
+              </div>
+              <div class="form-group">
+                <label for="loginPwd">Contraseña</label>
+                <input type="password" class="form-control" id="loginPwd" placeholder="Contraseña" required>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <div class="col text-center">
+                <button data-dismiss="modal" class="btn btn-secondary btn-block">Cancelar</button>
+              </div>
+              <div class="col text-center">
+                <button id="submitLogin" class="btn btn-success btn-block">Acceder</button>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal inicio de sesión -->
+
+  <!-- modal nuevo user-->
+  <div class="modal fade" id="modalNuevoUsuario" data-keyboard="false" data-backdrop="static" tabindex="-1"
+    role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="container-fluid">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h4 class="modal-title w-100 font-weight-bold">Agregar nuevo usuario</h4>
+          </div>
+
+          <form>
+            <div class="modal-body mx-3">
+              <div class="form-group">
+                <label for="nombreNuevoUsuario">Nombre</label>
+                <input type="text" id="nombreNuevoUsuario" class="form-control" placeholder="Nombre" required>
+              </div>
+              <div class="form-group">
+                <label for="apellidoNuevoUsuario">Apellido</label>
+                <input type="text" id="apellidoNuevoUsuario" class="form-control" placeholder="Apellido" required>
+              </div>
+              <div class="form-group">
+                <p id="usernameNuevoUsuario">
+                </p>
+              </div>
+              <div class="form-group">
+                <p id="pwdNuevoUsuario">
+                </p>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <div class="col text-center">
+                <button data-dismiss="modal" class="btn btn-secondary btn-block">Cancelar</button>
+              </div>
+              <div class="col text-center">
+                <button id="submitUser" class="btn btn-success btn-block">Agregar</button>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal nuevo user -->
+  <!-- confirmacion nuevo user-->
+  <div class="modal fade" id="confirmacionNuevoUsuario" data-keyboard="false" data-backdrop="static" tabindex="-1"
+    role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="container-fluid">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h4 class="modal-title w-100 font-weight-bold">¡Nuevo usuario agregado!</h4>
+          </div>
+
+          <div class="modal-body mx-3">
+            <div class="form-group">
+              <p id="datosNuevoUsuario"></p>
+            </div>
+
+            <div class="modal-footer">
+              <div class="col text-center">
+                <button data-dismiss="modal" class="btn btn-success btn-block">Aceptar</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- confirmacion nuevo user -->
+
+  <!-- modal nueva receta-->
+  <div class="modal fade" id="modalNuevaReceta" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="container-fluid">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h4 class="modal-title w-100 font-weight-bold">Agregar nueva receta</h4>
+          </div>
+          <form>
+            <div class="modal-body mx-3">
+              <div class="form-group">
+                <label for="tituloReceta">Título</label>
+                <input type="text" id="tituloReceta" class="form-control" placeholder="Nueva receta" required>
+              </div>
+
+              <div class="form-group">
+                <label for="tiempoReceta">Tiempo (en minutos)</label>
+                <input type="number" id="tiempoReceta" class="form-control" placeholder="10" required>
+              </div>
+
+              <div class="form-group">
+                <label for="procedimientoReceta">Procedimiento</label>
+                <textarea id="procedimientoReceta" class="form-control" rows="5" placeholder="Batir, mezclar, hornear, servir." required></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="imagenReceta">Dirección de la imagen</label>
+                <input type="text" id="imagenReceta" class="form-control" placeholder="imagen.jpg" required>
+              </div>
+
+            </div>
+
+            <div class="modal-footer">
+              <div class="col text-center">
+                <button data-dismiss="modal" class="btn btn-secondary btn-block">Cancelar</button>
+              </div>
+              <div class="col text-center">
+                <button id="submitReceta" class="btn btn-success btn-block">Agregar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal nueva receta -->
+  <!-- confirmacion nueva receta-->
+  <div class="modal fade" id="confirmacionReceta" data-keyboard="false" data-backdrop="static" tabindex="-1"
+    role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="container-fluid">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h4 class="modal-title w-100 font-weight-bold">¡Nueva receta agregada!</h4>
+          </div>
+
+          <div class="modal-body mx-3">
+            <div class="form-group">
+              <p id="textoConfirmacionReceta"></p>
+            </div>
+
+            <div class="modal-footer">
+              <!--<div class="col text-center" id="irAReceta">
+                  <button data-dismiss="modal" class="btn btn-primary btn-block">Ir a receta</button>
+                </div>-->
+              <div class="col text-center">
+                <button data-dismiss="modal" class="btn btn-success btn-block">Aceptar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- confirmacion nueva receta-->
+
+</body>
+
+</html>
